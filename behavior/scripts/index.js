@@ -1,6 +1,7 @@
 'use strict'
 
-exports.handle = function handle(client) {
+exports.handle = (client) => {
+  // Create steps
   const sayHello = client.createStep({
     satisfied() {
       return Boolean(client.getConversationState().helloSent)
@@ -12,9 +13,11 @@ exports.handle = function handle(client) {
         documentation_link: 'http://docs.init.ai',
       })
       client.addResponse('provide/instructions')
+
       client.updateConversationState({
         helloSent: true
       })
+
       client.done()
     }
   })
@@ -26,43 +29,21 @@ exports.handle = function handle(client) {
 
     prompt() {
       client.addResponse('apology/untrained')
-     client.done()
-    }
-  })
-
-  const handleGreeting = client.createStep({
-    satisfied() {
-      return false
-    },
-
-    prompt() {
-      client.addResponse('greeting')
       client.done()
-    }
-  })
-
-  const handleGoodbye = client.createStep({
-    satisfied() {
-      return false
-    },
-
-    prompt() {
-     client.addResponse('goodbye')
-     client.done()
     }
   })
 
   client.runFlow({
     classifications: {
-      goodbye: 'goodbye',
-      greeting: 'greeting'
+      // map inbound message classifications to names of streams
+    },
+    autoResponses: {
+      // configure responses to be automatically sent as predicted by the machine learning model
     },
     streams: {
-      goodbye: handleGoodbye,
-      greeting: handleGreeting,
       main: 'onboarding',
       onboarding: [sayHello],
-      end: [untrained]
-    }
+      end: [untrained],
+    },
   })
 }
