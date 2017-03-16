@@ -1,16 +1,16 @@
 ---
 title: greeting_01
-timestamp: 2017-03-16T16:00:36.796111704Z
+timestamp: 2017-03-16T16:15:16.222791632Z
 ---
 
 Hi
 * greeting
 
-< Hi mortal
-* welcome
+< Hello world, I mean Human
+* request_confirmation
 
 Goodbye
 * goodbye
 
-< See you, wouldn't want to be you!
-* request_confirmation
+< See ys later!
+* goodbye
