@@ -10,7 +10,7 @@ exports.handle = (client) => {
     prompt() {
       client.addResponse('welcome')
       client.addResponse('provide/documentation', {
-        documentation_link: 'http://docs.init.ai',
+        documentation_link: 'http://www.emagine.ie',
       })
       client.addResponse('provide/instructions')
 
