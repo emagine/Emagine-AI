@@ -1,7 +1,6 @@
 'use strict'
 
-exports.handle = (client) => {
-  // Create steps
+exports.handle = function handle(client) {
   const sayHello = client.createStep({
     satisfied() {
       return Boolean(client.getConversationState().helloSent)
@@ -10,14 +9,12 @@ exports.handle = (client) => {
     prompt() {
       client.addResponse('welcome')
       client.addResponse('provide/documentation', {
-        documentation_link: 'http://www.emagine.ie',
+        documentation_link: 'http://docs.init.ai',
       })
       client.addResponse('provide/instructions')
-
       client.updateConversationState({
         helloSent: true
       })
-
       client.done()
     }
   })
@@ -29,7 +26,7 @@ exports.handle = (client) => {
 
     prompt() {
       client.addResponse('apology/untrained')
-      client.done()
+     client.done()
     }
   })
 
@@ -51,24 +48,21 @@ exports.handle = (client) => {
 
     prompt() {
       client.addResponse('goodbye')
-      client.done()
+     client.done()
     }
   })
 
   client.runFlow({
     classifications: {
-      goodby: 'goodbye',
-      greeting: 'greeting',
-    },
-    autoResponses: {
-      // configure responses to be automatically sent as predicted by the machine learning model
+      goodbye: 'goodbye',
+      greeting: 'greeting'
     },
     streams: {
       goodbye: handleGoodbye,
       greeting: handleGreeting,
       main: 'onboarding',
       onboarding: [sayHello],
-      end: [untrained],
-    },
+      end: [untrained]
+    }
   })
 }
